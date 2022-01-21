@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable no-console */
+import React from 'react';
+import { Button, TextField } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import './App.scss';
 
-function App() {
+const Create = () => (
+  <>
+    <header>
+      <h1>Create game</h1>
+    </header>
+    <TextField label="Game's name" id="games-name" />
+    <Button color="primary" variant="contained" LinkComponent={Link} to="/game/:id">
+      Create
+    </Button>
+  </>
+);
+
+const Game = () => (
+  <>
+    <header>
+      <h1>:)</h1>
+    </header>
+    <TextField label="Your name" id="games-name" />
+    <Button color="primary" variant="contained" LinkComponent={Link} to="/game/:id">
+      Create
+    </Button>
+  </>
+);
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Routes>
+          <Route exact path="/game/:id" element={<Game />} />
+          <Route exact path="/" element={<Create />} />
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

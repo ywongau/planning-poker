@@ -1,0 +1,93 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:sonarjs/recommended"
+  ],
+  "rules": {
+    "react/prop-types": "off",
+    "arrow-body-style": "off",
+    "arrow-parens": ["off", "as-needed"],
+    "complexity": "off",
+    "constructor-super": "error",
+    "curly": "error",
+    "dot-notation": "error",
+    "eol-last": "error",
+    "guard-for-in": "error",
+    "id-length": ["error", { "exceptions": ["_", "t", "a", "b", "i"] }],
+    "max-classes-per-file": ["error", 1],
+    "max-lines": ["error", { "max": 200, "skipBlankLines": true, "skipComments": true }],
+    "new-parens": "error",
+    "no-bitwise": "error",
+    "no-caller": "error",
+    "no-cond-assign": "error",
+    "no-console": [
+      "error",
+      {
+        "allow": ["debug", "info", "log", "time", "timeEnd", "trace"]
+      }
+    ],
+    "no-debugger": "error",
+    "no-unused-vars": ["error", { "vars": "all", "args": "all", "argsIgnorePattern": "^_.*_?$" }],
+    "no-empty": "off",
+    "no-empty-functions": "off",
+    "no-eval": "error",
+    "no-fallthrough": "off",
+    "no-invalid-this": "off",
+    "no-multiple-empty-lines": "off",
+    "no-new-wrappers": "error",
+    "no-throw-literal": "error",
+    "no-undef-init": "error",
+    "no-unsafe-finally": "error",
+    "no-unused-labels": "error",
+    "no-var": "error",
+    "object-shorthand": "error",
+    "one-var": ["error", "never"],
+    "prefer-const": "error",
+    "quote-props": ["error", "as-needed"],
+    "radix": "error",
+    "use-isnan": "error",
+    "valid-typeof": "off",
+    "sonarjs/cognitive-complexity": ["error", 10],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/no-onchange": "off"
+  },
+  "globals": {},
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react-hooks", "sonarjs"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.test.*",
+        "src/**/*.types.*",
+        "src/**/*.stories.*",
+        "src/styles/**/*.*",
+        "src/stubs/**/*.*",
+        ".storybook/**/*.*"
+      ],
+      "rules": {
+        "max-statements": "off",
+        "max-lines": "off",
+        "react-hooks/rules-of-hooks": "off",
+        "react/display-name": "off"
+      }
+    }
+  ]
+}
