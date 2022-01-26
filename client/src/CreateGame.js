@@ -2,18 +2,18 @@ import React from 'react';
 import { Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import api from './api';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const CreateGame = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const onSubmit = data => api.create(data.name).then(data => history.push('/game/' + data.id));
+  const onSubmit = data => api.create(data.name).then(data => navigate('/game/' + data.id));
   return (
     <>
       <header>
-        <h1>Create game</h1>
+        <h1>What&apos;s the name of the game?</h1>
       </header>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField label="Game's name" id="games-name" {...register('name', { required: true })} />
+        <TextField fullWidth label="Game's name" {...register('name', { required: true })} />
         <Button color="primary" variant="contained" type="submit">
           Create
         </Button>

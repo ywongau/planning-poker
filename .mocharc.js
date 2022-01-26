@@ -7,8 +7,8 @@ module.exports = {
   timeout: 60000,
   ui: 'bdd',
   require: ['mocha/register.js'],
-  'watch-files': ['src'],
+  'watch-files': ['src', 'server'],
   reporter: 'min',
-  spec: ['src/**/*.test.js*'],
+  spec: ['client/src/**/*.test.js*', 'server/src/**/*.test.js'],
   recursive: true,
 };

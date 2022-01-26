@@ -3,21 +3,18 @@ import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/re
 import sinon from 'sinon';
 import rewiremock from 'rewiremock/node';
 const create = sinon.stub();
-const push = sinon.stub();
+const navigate = sinon.stub();
 const api = {
   create,
 };
-const history = {
-  push,
-};
 
-const useHistory = () => history;
+const useNavigate = () => navigate;
 
 const CreateGame = rewiremock.proxy(
   () => require('./CreateGame'),
   () => {
     rewiremock(() => require('./api')).withDefault(api);
-    rewiremock(() => require('react-router-dom')).with({ useHistory });
+    rewiremock(() => require('react-router-dom')).with({ useNavigate });
   }
 ).default;
 
@@ -27,6 +24,7 @@ describe('app', () => {
     sinon.resetBehavior();
     await cleanup();
   });
+
   it(`should show create game screen`, async () => {
     const id = '12345';
     create.resolves({ id });
@@ -36,6 +34,6 @@ describe('app', () => {
     await waitFor(() => undefined);
     sinon.assert.calledWith(create, 'Sprint 1');
     await waitFor(() => undefined);
-    sinon.assert.calledWith(push, '/game/' + id);
+    sinon.assert.calledWith(navigate, '/game/' + id);
   });
 });

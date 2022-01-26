@@ -14,12 +14,11 @@ import rewiremock from 'rewiremock/node';
 
 const send = sinon.spy();
 const recieved = sinon.spy();
-const api = { send, recieved };
+const ws = { send, recieved };
 const id = 'id1';
 const Estimate = rewiremock.proxy(
   () => require('./Estimate'),
   () => {
-    rewiremock(() => require('./api')).withDefault(api);
     rewiremock(() => require('react-router-dom')).with({
       useParams: () => ({
         id,
@@ -27,6 +26,12 @@ const Estimate = rewiremock.proxy(
     });
   }
 ).default;
+
+const renderComponent = () => render(<Estimate playerName="Bob" ws={ws} />);
+const fakeMessage = data =>
+  recieved.callArgWith(0, {
+    data: JSON.stringify(data),
+  });
 
 describe('Estimate', () => {
   afterEach(async () => {
@@ -36,9 +41,9 @@ describe('Estimate', () => {
   });
 
   it('should display a list of users if state message is recieved', async () => {
-    render(<Estimate player="Bob" />);
+    renderComponent();
 
-    recieved.callArgWith(0, {
+    fakeMessage({
       name: 'Sprint 1',
       revealed: true,
       players: [
@@ -52,6 +57,7 @@ describe('Estimate', () => {
         },
       ],
     });
+
     await screen.findByText('Sprint 1');
     const results = await screen.findByRole('region', { name: 'Results' });
     await findByText(results, 'Bob');
@@ -61,9 +67,9 @@ describe('Estimate', () => {
   });
 
   it('should NOT display points if revealed is false', async () => {
-    render(<Estimate player="Bob" />);
+    renderComponent();
 
-    recieved.callArgWith(0, {
+    fakeMessage({
       name: 'Sprint 1',
       revealed: false,
       players: [
@@ -77,6 +83,7 @@ describe('Estimate', () => {
         },
       ],
     });
+
     await screen.findByText('Sprint 1');
     const results = await screen.findByRole('region', { name: 'Results' });
     await findByText(results, 'Bob');
@@ -85,7 +92,8 @@ describe('Estimate', () => {
   });
 
   it('should show the points to the user', async () => {
-    render(<Estimate player="Bob" />);
+    renderComponent();
+
     await screen.findByRole('button', { name: '0' });
     await screen.findByRole('button', { name: '0.5' });
     await screen.findByRole('button', { name: '1' });
@@ -93,9 +101,9 @@ describe('Estimate', () => {
     await screen.findByRole('button', { name: '3' });
     fireEvent.click(await screen.findByRole('button', { name: '5' }));
     sinon.assert.calledWith(send, {
-      action: 'estimate',
+      type: 'estimate',
       id,
-      data: {
+      payload: {
         name: 'Bob',
         points: 5,
       },
@@ -103,8 +111,9 @@ describe('Estimate', () => {
   });
 
   it('the estimate points in not given then label is not ready', async () => {
-    render(<Estimate player="Bob" />);
-    recieved.callArgWith(0, {
+    renderComponent();
+
+    fakeMessage({
       name: 'Sprint 1',
       revealed: false,
       players: [
@@ -126,11 +135,24 @@ describe('Estimate', () => {
   });
 
   it('should have a reveal button', async () => {
-    render(<Estimate player="Bob" />);
+    renderComponent();
+
     fireEvent.click(await screen.findByText('Reveal'));
     expect(
       sinon.assert.calledWith(send, {
-        action: 'reveal',
+        type: 'reveal',
+        id,
+      })
+    );
+  });
+
+  it('should have a reset button', async () => {
+    renderComponent();
+
+    fireEvent.click(await screen.findByText('Reset'));
+    expect(
+      sinon.assert.calledWith(send, {
+        type: 'reset',
         id,
       })
     );

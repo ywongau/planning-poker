@@ -1,0 +1,107 @@
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .MuiTextField-root {
+    display: block;
+    margin: 16px 0;
+  }
+}
+.App {
+  width: 100%;
+  padding: 16px;
+
+  h1 {
+    text-align: center;
+    min-height: 1em;
+  }
+
+  form {
+    max-width: 200px;
+    margin: auto;
+  }
+
+  canvas {
+    display: block;
+    margin: auto;
+  }
+}
+
+.Estimate__cards {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 5rem);
+  justify-content: center;
+  gap: 16px;
+  margin: 8px 0;
+  min-height: 11rem;
+
+  li {
+    list-style: none;
+    position: relative;
+  }
+}
+
+.Estimate__playerName {
+  font-size: 1rem;
+  text-align: center;
+  margin: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Estimate__card {
+  font-size: 2rem;
+  font-weight: bold;
+  border: solid 2px #888;
+  width: 5rem;
+  height: 8rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &[aria-pressed='true'] {
+    box-shadow: 4px 4px 4px rgba($color: #000000, $alpha: 0.2);
+    top: -4px;
+  }
+  &.MuiButton-root {
+    font-size: 2rem;
+    font-weight: bold;
+    min-width: none;
+  }
+}
+
+.Estimate__card-pending {
+  border: dashed 2px #ccc;
+}
+
+.Estimate__actions {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+  button {
+    margin: 8px;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 12px;
+  }
+  .Estimate__cards {
+    min-height: 9rem;
+  }
+
+  .Estimate__card {
+    height: 6.5rem;
+  }
+
+  button.MuiButton-root {
+    font-size: 1.2rem;
+  }
+}

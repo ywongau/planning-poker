@@ -1,0 +1,14 @@
+{
+  "name": "planning-poker",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.2",
+    "node-cache": "^5.1.2",
+    "uuid": "^8.3.2",
+    "ws": "^8.4.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
