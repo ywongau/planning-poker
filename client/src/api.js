@@ -10,5 +10,6 @@ const create = name =>
       name,
     }),
   }).then(json);
+const api = { create }
 
-export default { create };
+export default api;

@@ -21,8 +21,7 @@
     "build": "react-scripts build",
     "test": "mocha",
     "dev": "mocha --watch",
-    "eject": "react-scripts eject",
-    "serve": "node server/index.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -58,7 +57,7 @@
     "cors": "^2.8.5",
     "eslint": "^7.11.0",
     "eslint-plugin-sonarjs": "^0.11.0",
-    "http-proxy-middleware": "^2.0.1",
+    "http-proxy-middleware": "^2.0.3",
     "ignore-styles": "^5.0.1",
     "jsdom": "^19.0.0",
     "jsdom-global": "^3.0.2",
